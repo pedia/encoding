@@ -571,7 +571,7 @@ func appendStructFields(fields []structField, t reflect.Type, offset uintptr, se
 			continue
 		}
 
-		if parts := strings.Split(f.Tag.Get("json"), ","); len(parts) != 0 {
+		if parts := strings.Split(f.Tag.Get("rson"), ","); len(parts) != 0 {
 			if len(parts[0]) != 0 {
 				name, tag = parts[0], true
 			}
@@ -838,6 +838,7 @@ func constructInlineValueEncodeFunc(encode encodeFunc) encodeFunc {
 // compiles down to zero instructions.
 // USE CAREFULLY!
 // This was copied from the runtime; see issues 23382 and 7921.
+//
 //go:nosplit
 func noescape(p unsafe.Pointer) unsafe.Pointer {
 	x := uintptr(p)
